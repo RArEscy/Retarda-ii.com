@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="UTF-8">
+<title>Galerie Foto</title>
+
+<style>
+body{
+    font-family: Arial;
+    background:#111;
+    color:white;
+    text-align:center;
+}
+
+#gallery{
+    display:grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px,1fr));
+    gap:10px;
+    padding:20px;
+}
+
+#gallery img{
+    width:100%;
+    border-radius:10px;
+}
+</style>
+</head>
+
+<body>
+
+<h1>Galerie Foto</h1>
+
+<input type="file" id="upload" multiple accept="image/*">
+
+<div id="gallery"></div>
+
+<script>
+const upload = document.getElementById("upload");
+const gallery = document.getElementById("gallery");
+
+upload.addEventListener("change", function(){
+
+    const files = this.files;
+
+    for(let i = 0; i < files.length; i++){
+
+        const reader = new FileReader();
+
+        reader.onload = function(e){
+            const img = document.createElement("img");
+            img.src = e.target.result;
+            gallery.appendChild(img);
+        }
+
+        reader.readAsDataURL(files[i]);
+    }
+
+});
+</script>
+
+</body>
+</html>
