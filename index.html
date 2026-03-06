@@ -2,24 +2,24 @@
 <html lang="ro">
 <head>
 <meta charset="UTF-8">
-<title>Galerie Foto</title>
+<title>Galerie imagini</title>
 
 <style>
 body{
-    font-family: Arial;
     background:#111;
     color:white;
+    font-family:Arial;
     text-align:center;
 }
 
 #gallery{
     display:grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px,1fr));
+    grid-template-columns:repeat(auto-fill,minmax(200px,1fr));
     gap:10px;
     padding:20px;
 }
 
-#gallery img{
+img{
     width:100%;
     border-radius:10px;
 }
@@ -28,34 +28,29 @@ body{
 
 <body>
 
-<h1>Galerie Foto</h1>
-
-<input type="file" id="upload" multiple accept="image/*">
+<h1>Galerie</h1>
 
 <div id="gallery"></div>
 
 <script>
-const upload = document.getElementById("upload");
-const gallery = document.getElementById("gallery");
+let gallery = document.getElementById("gallery");
 
-upload.addEventListener("change", function(){
+let i = 1;
 
-    const files = this.files;
+function loadImages(){
 
-    for(let i = 0; i < files.length; i++){
+    let img = new Image();
+    img.src = "images/" + i + ".jpg";
 
-        const reader = new FileReader();
-
-        reader.onload = function(e){
-            const img = document.createElement("img");
-            img.src = e.target.result;
-            gallery.appendChild(img);
-        }
-
-        reader.readAsDataURL(files[i]);
+    img.onload = function(){
+        gallery.appendChild(img);
+        i++;
+        loadImages(); // încearcă următoarea imagine
     }
 
-});
+}
+
+loadImages();
 </script>
 
 </body>
