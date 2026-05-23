@@ -2,48 +2,85 @@
 <html lang="ro">
 <head>
 <meta charset="UTF-8">
-<title>Retardatii</title>
+<title>Galerie</title>
 
 <style>
+
 body{
 background:#111;
-color:white;
+margin:0;
+padding:10px;
 font-family:Arial;
-text-align:center;
 }
 
 #gallery{
 display:grid;
-grid-template-columns:repeat(auto-fill,minmax(200px,1fr));
-gap:10px;
-padding:20px;
+grid-template-columns:repeat(auto-fill,minmax(300px,1fr));
+gap:15px;
 }
 
-img{
+.box{
+background:#1b1b1b;
+border-radius:10px;
+overflow:hidden;
+padding:10px;
+}
+
+img,video{
 width:100%;
 border-radius:10px;
+display:block;
 }
+
+video{
+background:black;
+}
+
 </style>
 </head>
 
 <body>
-
-<h1>retardatii.com</h1>
 
 <div id="gallery"></div>
 
 <script>
 
 fetch("images.json")
-.then(response => response.json())
-.then(images => {
+.then(res => res.json())
+.then(files => {
 
 let gallery = document.getElementById("gallery");
 
-images.forEach(src => {
+files.forEach(src => {
+
+let box = document.createElement("div");
+box.className = "box";
+
+if(src.endsWith(".mp4")){
+
+let video = document.createElement("video");
+
+video.src = src;
+video.controls = true;
+video.preload = "metadata";
+
+box.appendChild(video);
+
+let imgNumber = src.match(/\d+/)[0];
+
 let img = document.createElement("img");
-img.src = src;
-gallery.appendChild(img);
+img.src = "images/" + imgNumber + ".png";
+
+box.appendChild(img);
+
+}else if(src.endsWith(".png")){
+
+return;
+
+}
+
+gallery.appendChild(box);
+
 });
 
 });
