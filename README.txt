@@ -7,3 +7,6 @@ In care eu incerc sa fac un site care sa fac o galerie de poze si filmari stupid
     #             #
      ##        ##
         #####
+
+
+NU INCERCATI SA FACETI ASTA ACASA TOATE CHESTIILE SUNT FACUTE DE PROFESIONISTI
